@@ -1,3 +1,18 @@
-<div class="">
+<div class>
   <h1><%= @rooms.first.hotel.name %></h1>
+</div>
+
+<div class="row">
+  <% @rooms.each do |room| %>
+<%# binding.pry %>
+  <div class="center">
+    <h1>
+      <%= room.room_type.name %>
+    </h1>
+  </div>
+  <div class="">
+    <%= link_to image_tag(room.room_type.photo, alt: room.room_type.name,
+    size: "850x460"),  '#' %>
+  </div>
+<% end %>
 </div>
