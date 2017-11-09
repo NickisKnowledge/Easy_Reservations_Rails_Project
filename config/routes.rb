@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   resources :addresses
   resources :reservations
-  resources :room_types
   resources :users
-  resources :rooms, only: :show
+  resources :rooms, only: :show do
+    resources :room_types, only: :show    
+  end
   root 'hotels#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
