@@ -4,4 +4,7 @@ class Room < ActiveRecord::Base
   has_many :reservations
   has_many :users, through: :reservations
 
+  def self.hotel_rooms(id)
+    where('hotel_id = ?', id)
+  end
 end
