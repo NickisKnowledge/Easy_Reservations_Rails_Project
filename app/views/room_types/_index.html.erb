@@ -6,6 +6,6 @@
   </div>
   <div class="rooms_photos">
     <%= link_to image_tag(room.room_type.photo, alt: room.room_type.name,
-    size: "850x460"),  '#' %>
+    size: "850x460"), room_room_type_path(room, room.room_type) %>
   </div>
 <% end %>
