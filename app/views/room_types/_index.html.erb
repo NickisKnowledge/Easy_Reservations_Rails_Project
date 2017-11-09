@@ -1,0 +1,11 @@
+<% rooms.each do |room| %>
+  <div class="center">
+    <h1>
+      <%= room.room_type.name %>
+    </h1>
+  </div>
+  <div class="rooms_photos">
+    <%= link_to image_tag(room.room_type.photo, alt: room.room_type.name,
+    size: "850x460"),  '#' %>
+  </div>
+<% end %>
