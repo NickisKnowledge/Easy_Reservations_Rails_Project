@@ -1,3 +1,11 @@
-<div>
-  <h1><%= @room_type.name %> SHOW PAGE</h1>
+<div class="center">
+  <h1><%= @room_type.name %></h1>
 </div>
+
+<div class="row">
+  <aside class="col-md-4">
+    <div class="">
+      <%= image_tag(@room_type.photo , alt: @room_type.name,
+      size: "760x410") %>
+    </div>
+  </aside>
