@@ -1,0 +1,27 @@
+<% if @reservation.errors.any? %>
+  <div id="error_explanation">
+    <h3><%= pluralize(@reservation.errors.count, "error") %> prohibited your
+      reservation from being made:
+    </h3>
+
+    <ul>
+    <% @reservation.errors.full_messages.each do |message| %>
+      <li>* <%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="center">
+  <h2>Reservation for
+    <%= user_view_reservation_date(@reservation.checkin_date) %> Update
+  </h2>
+</div>
+
+<br />
+
+<div class="col-md-6 col-md-offset-3">
+  <%= form_for @reservation do |f| %>
+   <%= render 'reservations/form', f: f, reservation: @reservation %>
+  <% end %>
+</div>

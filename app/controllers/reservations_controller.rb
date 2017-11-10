@@ -16,7 +16,7 @@ class ReservationsController < ApplicationController
     @reservation.checkout_date=(reservation_params[:checkout_date])
     @reservation.checkout_time=(reservation_params[:checkout_time])
     @reservation.convert_to_datetime
-    binding.pry
+    # binding.pry
 
     if @reservation.save
       @reservation.decrease_room_inventory
@@ -28,6 +28,24 @@ class ReservationsController < ApplicationController
       render :'room_types/show'
     end
   end
+
+  def edit
+    # binding.pry
+    if @reservation.user_id == current_user.id
+      Reservation.reservation_checkin_setter(@reservation)
+      Reservation.reservation_checkout_setter(@reservation)
+      render :edit
+    else
+      flash[:alert] = "You don't have permission to edit that reservation."
+      redirect_to reservations_path
+    end
+  end
+
+  def update
+    binding.pry
+    
+  end
+
 
   def destroy
     @reservation.increase_room_inventory

@@ -147,7 +147,25 @@ class Reservation < ActiveRecord::Base
   end
 
   def increase_room_inventory
-    binding.pry
+    # binding.pry
     room.update(inventory: (room.inventory += number_of_rooms))
+  end
+
+  def self.reservation_checkin_setter(reservation)
+    reservation.checkin_date = reservation.reservation_date(
+      reservation.checkin_datetime
+    )
+    reservation.checkin_time = reservation.reservation_time(
+      reservation.checkin_datetime
+    )
+  end
+
+  def self.reservation_checkout_setter(reservation)
+    reservation.checkout_date = reservation.reservation_date(
+      reservation.checkout_datetime
+    )
+    reservation.checkout_time = reservation.reservation_time(
+      reservation.checkout_datetime
+    )
   end
 end
