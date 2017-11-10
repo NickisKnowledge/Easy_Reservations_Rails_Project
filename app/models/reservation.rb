@@ -4,6 +4,12 @@ class Reservation < ActiveRecord::Base
 
   attr_accessor :checkin_date, :checkin_time, :checkout_date, :checkout_time
 
+  validates_presence_of :checkin_date
+  validates_presence_of :checkin_time
+  validates_presence_of :checkout_date
+  validates_presence_of :checkout_time
+  validates_presence_of :number_of_rooms
+  
   def convert_to_datetime
     binding.pry
     self.checkin_datetime =  self.merge_datetime(

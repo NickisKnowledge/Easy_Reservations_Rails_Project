@@ -1,3 +1,17 @@
+<% if current_user && @reservation.errors.any? %>
+  <div id="error_explanation">
+    <h3><%= pluralize(@reservation.errors.count, "error") %> prohibited your
+      reservation from being made:
+    </h3>
+
+    <ul>
+    <% @reservation.errors.full_messages.each do |message| %>
+      <li>* <%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <div class="center">
   <h1><%= @room_type.name %></h1>
 </div>
@@ -44,7 +58,7 @@
         </center>
          <%= f.hidden_field :room_id %>
          <%= f.hidden_field :user_id %><br />
-        
+
          <center><%= f.submit class: "btn btn-primary" %></center>
         </div>
          <%= f.hidden_field :room_type_id, value: @room_type.id %>
