@@ -90,6 +90,22 @@ class Reservation < ActiveRecord::Base
   def decrease_room_inventory
   # binding.pry
   room.update(inventory: (room.inventory -= number_of_rooms))
-end
+  end
+
+  def self.default_checkin_date
+    DateTime.now.strftime('%Y-%m-%d')
+  end
+
+  def self.default_checkin_time
+    (DateTime.now.midday + 3.hours).strftime('%H:%M')
+  end
+
+  def self.default_checkout_date
+    DateTime.tomorrow.strftime('%Y-%m-%d')
+  end
+
+  def self.default_checkout_time
+    (DateTime.tomorrow.midday).strftime('%H:%M')
+  end
 
 end

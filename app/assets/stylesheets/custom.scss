@@ -143,6 +143,18 @@ aside {
   border: 1px solid red;
 }
 
+.field_with_errors input[type='date']{
+  border: 1px solid red;
+}
+
+.field_with_errors input[type='time']{
+  border: 1px solid red;
+}
+
+.field_with_errors input[type='number']{
+  border: 1px solid red;
+}
+
 /* header */
 #logo {
   float: left;
