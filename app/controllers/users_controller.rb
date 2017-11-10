@@ -21,6 +21,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    if current_user.id == params[:id].to_i
+      render :edit
+    else
+      flash[:alert] = "You don't have permission to edit that profile"
+      redirect_to user_path(current_user.id)
+    end
+  end
+
   def show
     if current_user.id == params[:id].to_i
       @addresses = Address.remove_empty_addresses(current_user)
