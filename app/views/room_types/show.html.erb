@@ -25,11 +25,13 @@
     </div>
   </div>
 <% elsif current_user && current_user.addresses.blank? %>
-  <div class="">
-    <%= link_to 'Click Here', new_address_path %> to add your Home Address
+  <div class="links">
+    <strong>
+      <%= link_to 'Click Here', new_address_path %> to add your Home Address
+    </strong>
   </div>
 <% else %>
-  <div class="">
+  <div class="links">
     <strong>
       <%= link_to 'Register', new_user_path %> or
       <%= link_to 'Log in',  login_path %> to make a Reservation
