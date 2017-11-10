@@ -111,4 +111,35 @@ class Reservation < ActiveRecord::Base
   def self.users_reservations(user)
     where('user_id = ?', user)
   end
+
+  def reservation_date(booking_datetime)
+    booking_datetime.strftime('%Y-%m-%d')
+  end
+
+  def reservation_time(booking_datetime)
+    booking_datetime.strftime('%H:%M')
+  end
+
+  def self.reservations_checkin_setter(reservations)
+    reservations.each do |reservation|
+      reservation.checkin_date = reservation.reservation_date(
+        reservation.checkin_datetime
+      )
+      reservation.checkin_time = reservation.reservation_time(
+        reservation.checkin_datetime
+      )
+    end
+  end
+
+  def self.reservations_checkout_setter(reservations)
+    reservations.each do |reservation|
+      reservation.checkout_date = reservation.reservation_date(
+        reservation.checkout_datetime
+      )
+      reservation.checkout_time = reservation.reservation_time(
+        reservation.checkout_datetime
+      )
+    end
+  end
+
 end

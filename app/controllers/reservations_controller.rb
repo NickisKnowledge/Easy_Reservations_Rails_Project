@@ -4,6 +4,8 @@ class ReservationsController < ApplicationController
 
   def index
     @reservations = Reservation.users_reservations(current_user)
+    Reservation.reservations_checkin_setter(@reservations)
+    Reservation.reservations_checkout_setter(@reservations)
   end
 
   def create
