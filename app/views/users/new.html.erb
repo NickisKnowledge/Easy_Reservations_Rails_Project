@@ -1,3 +1,19 @@
+<% if @user.errors.any? %>
+  <div id="">
+    <h3>
+      <%= @user.errors.count %> user
+      <%= 'error'.pluralize(@user.errors.count) %>
+       prohibited your information from being saved:
+    </h3>
+
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li>* <%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <div>
   <h2>Sign up</h2>
 </div>
