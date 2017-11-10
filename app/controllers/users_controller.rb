@@ -10,7 +10,8 @@ class UsersController < ApplicationController
     # debugger
     if @user.save
       session[:user_id] = @user.id
-      redirect_to root_path
+      redirect_to root_path, {notice: 'Thanks for registering! Select ' \
+        'the hotel you want to stay at.'}
     else
       render :new
     end
