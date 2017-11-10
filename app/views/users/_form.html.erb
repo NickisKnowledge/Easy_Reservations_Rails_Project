@@ -8,3 +8,29 @@
   <%= f.password_field :password_confirmation,
   placeholder: 'Password Confirmation' %>
 </div><br />
+<%= f.fields_for :addresses do |ff| %>
+<%# binding.pry %>
+  <fieldset>
+    <legend>
+      <h2>Home Address</h2>
+    </legend>
+    <div class='field'>
+      <%= ff.text_field :street_1, placeholder: 'Street 1' %><br />
+    </div>
+    <div class='field'>
+      <%= ff.text_field :street_2, placeholder: 'Street 2' %><br />
+    </div>
+    <div class='field'>
+      <%= ff.text_field :city, placeholder: 'City' %><br />
+    </div>
+    <div class='field'>
+      <%= ff.text_field :state, placeholder: 'State' %><br />
+    </div>
+    <div class='field'>
+      <%= ff.text_field :zipcode, placeholder: 'ZIP Code' %><br />
+    </div>
+    <div class='field'>
+      <%= ff.hidden_field :address_type %><br />
+    </div>
+  </fieldset>
+<% end %>

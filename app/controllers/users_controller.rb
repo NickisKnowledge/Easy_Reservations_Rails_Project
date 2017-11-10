@@ -4,10 +4,11 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @addresses = @user.addresses.build(address_type: 'Home')
   end
 
   def create
-    # raise params.inspect
+    raise params.inspect
     @user = User.create(user_params)
     # debugger
     if @user.save

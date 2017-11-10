@@ -19,10 +19,11 @@
 </div>
 
 <%= form_for @user do |f| %>
-  <%= render 'form', f:f, user: @user %>
+<%# binding.pry %>
+  <%= render 'form', f:f, user: @user, addresses: @addresses %>
   <div class='actions'>
     <%= f.submit 'Sign up', class: "btn btn-primary" %><br />
   </div>
 <% end %>
 
-<%= link_to 'Log in', login_path %>
+<br /><%= link_to 'Log in', login_path %>
