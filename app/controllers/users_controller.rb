@@ -9,8 +9,8 @@ class UsersController < ApplicationController
   end
 
   def create
-    raise params.inspect
-    @user = User.create(user_params)
+    # raise params.inspect
+    @user = User.new(user_params)
     # debugger
     if @user.save
       session[:user_id] = @user.id
