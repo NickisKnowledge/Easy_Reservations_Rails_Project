@@ -7,11 +7,11 @@
     <h3><%= reservation.room_name %></h3>
     <ul>
       <strong>Check In: </strong>
-      <%= reservation.checkin_time %> on
-        <%= reservation.checkin_date %><br />
+      <%= user_view_reservation_time(reservation.checkin_time) %> on
+        <%= user_view_reservation_date(reservation.checkin_date) %><br />
       <strong>Check out: </strong>
-      <%= reservation.checkout_time %> on
-        <%= reservation.checkout_date %><br />
+      <%= user_view_reservation_time(reservation.checkout_time) %> on
+        <%= user_view_reservation_date(reservation.checkout_date) %><br />
       <strong>Rooms: </strong>
       <%= reservation.number_of_rooms %><br />
     </ul>
