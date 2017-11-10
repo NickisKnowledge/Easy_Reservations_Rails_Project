@@ -8,8 +8,14 @@ class ReservationsController < ApplicationController
     @reservation.checkout_date=(reservation_params[:checkout_date])
     @reservation.checkout_time=(reservation_params[:checkout_time])
     @reservation.convert_to_datetime
-    binding.pry
 
+    if @reservation.save
+      redirect_to reservations_path,{notice: "Your reservation " \
+        "for the #{@reservation.room_name} has been made, $0 are due today"}
+    else
+      # binding.pry
+      render :'room_types/show'
+    end
   end
 
   private

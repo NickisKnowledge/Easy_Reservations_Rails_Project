@@ -9,19 +9,12 @@ class Reservation < ActiveRecord::Base
   validates_presence_of :checkout_date
   validates_presence_of :checkout_time
   validates_presence_of :number_of_rooms
-  
-  def convert_to_datetime
-    binding.pry
-    self.checkin_datetime =  self.merge_datetime(
-      self.checkin_date,
-      self.checkin_time
-    )
 
-    binding.pry
-    self.checkout_datetime = self.merge_datetime(
-    self.checkout_date,
-    self.checkout_time
-    )
+  def convert_to_datetime
+    # binding.pry
+    checkin_datetime =  merge_datetime(checkin_date, checkin_time)
+    # binding.pry
+    checkout_datetime = merge_datetime(checkout_date, checkout_time)
   end
 
   def merge_datetime(date1, time1)
@@ -36,5 +29,9 @@ class Reservation < ActiveRecord::Base
       res_time.min,
       res_time.sec
     )
+  end
+
+  def room_name
+    room.room_type.name
   end
 end
