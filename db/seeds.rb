@@ -107,3 +107,21 @@ room_list.each do |room|
     hotel_id: room[3],
   )
 end
+
+setup_addresses = [
+  ['852 E Dr', '', 'Winchester', 'MN',	'96541', 'Home', 1],
+  ['11 Broadway', '#260', 'New York',	'NY',	'10004',	'Work', 1],
+  ['123 Orchard', 'apt 14', 'Montana','MN', '6612', 'Work', 2]
+]
+
+setup_addresses.each do |address|
+  Address.create(
+    street_1: address[0],
+    street_2: address[1],
+    city: address[2],
+    state: address[3],
+    zipcode: address[4],
+    address_type: address[5],
+    user_id: address[6]
+  )
+end
