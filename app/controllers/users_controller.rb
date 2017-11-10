@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     @addresses = @user.addresses.build(address_type: 'Home')
+    @addresses = @user.addresses.build(address_type: 'Work')
   end
 
   def create
@@ -45,11 +46,20 @@ class UsersController < ApplicationController
   end
 
   def user_params
-  # binding.pry
+    # binding.pry
     params.require(:user).permit(
       :name,
       :password,
-      :password_confirmation
+      :password_confirmation,
+      :addresses_attributes => [
+        :street_1,
+        :street_2,
+        :city,
+        :state,
+        :zipcode,
+        :address_type,
+        :id
+      ]
     )
   end
 end

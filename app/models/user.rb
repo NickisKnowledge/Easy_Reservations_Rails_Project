@@ -5,4 +5,12 @@ class User < ActiveRecord::Base
 
   validates_presence_of :name
   has_secure_password
+
+  def addresses_attributes=(addresses_attributes)
+    binding.pry
+    addresses_attributes.values.each do |address_attributes|
+      binding.pry
+      self.addresses.build(address_attributes)
+    end
+  end
 end
