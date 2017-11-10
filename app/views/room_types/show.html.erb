@@ -12,28 +12,7 @@
 
   <div class="col-md-8">
     <ol class="room_type">
-      <li>
-        <span class="align_right">
-          <h3>
-            <strong>Description:</strong>
-          </h3>
-          <%= @room_type.description %><br />
-          <h3>
-            <strong>Beds:</strong>
-          </h3>
-          <%= @room_type.beds %>
-          <h3>
-            <strong>Hotel Amenities:</strong>
-          </h3>
-            <%= @amenities %>
-          <h3>
-            <strong>Room Rate:</strong>
-          </h3>
-          <% @room_type.rooms.each do |room| %>
-            <%= number_to_currency(room.room_rate) %><br />
-          <% end %>
-        </span>
-      </li>
+      <%= render @room_type, amenities: @amenities  %>
     </ol>
   </div>
 </div>
