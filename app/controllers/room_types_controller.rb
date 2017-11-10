@@ -7,7 +7,8 @@ class RoomTypesController < ApplicationController
 
     @amenities = @room_type.hotel_amenities
 
-    @reservation = current_user.reservations.build if current_user
+    @reservation = current_user.reservations.build(room_id: params[:room_id]) if
+      current_user
   end
 
   private
