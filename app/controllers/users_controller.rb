@@ -29,8 +29,13 @@ class UsersController < ApplicationController
   end
 
   def update
-    raise params.inspect
-
+    # raise params.inspect
+    if @user.update(user_params)
+      redirect_to user_path(@user), {notice: "#{@user.name}, your " \
+        "profile has been updated"}
+    else
+      render :edit
+    end
   end
 
   private
