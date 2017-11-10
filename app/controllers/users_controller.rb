@@ -19,11 +19,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    if current_user.id == params[:id].to_i
+      render :show
+    else
+      flash[:alert] = "You don't have permission to access that profile"
+      redirect_to user_path(current_user.id)
+    end
+  end
+
   private
   def set_user
     @user = current_user
   end
-  
+
   def user_params
   # binding.pry
     params.require(:user).permit(
