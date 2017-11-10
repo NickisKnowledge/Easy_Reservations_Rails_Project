@@ -1,3 +1,17 @@
 <div class="center">
   <h1>Reservations</h1>
 </div>
+
+<div>
+  <h3><%= @reservation.room_name %> at <%= @reservation.hotel_name %></h3>
+  <ul>
+    <strong>Check In: </strong>
+    <%= @reservation.checkin_time %> on
+      <%= @reservation.checkin_date %><br />
+    <strong>Check out: </strong>
+    <%= @reservation.checkout_time %> on
+      <%= @reservation.checkout_date %><br />
+    <strong>Rooms: </strong>
+    <%= @reservation.number_of_rooms %><br />
+  </ul>
+</div>

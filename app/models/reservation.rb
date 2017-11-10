@@ -108,4 +108,7 @@ class Reservation < ActiveRecord::Base
     (DateTime.tomorrow.midday).strftime('%H:%M')
   end
 
+  def self.users_reservations(user)
+    where('user_id = ?', user)
+  end
 end

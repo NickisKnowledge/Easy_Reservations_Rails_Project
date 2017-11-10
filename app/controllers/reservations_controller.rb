@@ -1,4 +1,10 @@
 class ReservationsController < ApplicationController
+  before_action :require_login
+  before_action :set_reservation, only: [:edit, :update, :destroy]
+
+  def index
+    @reservations = Reservation.users_reservations(current_user)
+  end
 
   def create
     # raise params.inspect
@@ -22,6 +28,11 @@ class ReservationsController < ApplicationController
   end
 
   private
+  def set_reservation
+    @reservation = Reservation.find_by(id: params[:id])
+  end
+
+
   def reservation_params
   params.require(:reservation).permit(
     :checkin_date,
