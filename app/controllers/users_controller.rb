@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :require_login, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def new
     @user = User.new
@@ -18,7 +20,10 @@ class UsersController < ApplicationController
   end
 
   private
-
+  def set_user
+    @user = current_user
+  end
+  
   def user_params
   # binding.pry
     params.require(:user).permit(
