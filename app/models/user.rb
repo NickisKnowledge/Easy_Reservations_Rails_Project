@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   def addresses_attributes=(addresses_attributes)
     # binding.pry
     addresses_attributes.values.each do |address_attributes|
-      binding.pry
+      # binding.pry
       self.addresses.build(address_attributes)
     end
   end
