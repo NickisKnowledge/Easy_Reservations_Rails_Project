@@ -24,15 +24,15 @@ textarea {
   }
 }
 
-.links {
-  font-size: 2em;
-  text-align: center;
-}
-
 /* typography */
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;
 }
+
+/* body */
+
+/* miscellaneous */
+$gray-medium-light: #eaeaea;
 
 /* hotel index */
 .hotels {
@@ -52,6 +52,25 @@ h1, h2, h3, h4, h5, h6 {
   margin:auto;
 }
 
+/* sidebar */
+aside {
+  section.room_name {
+    margin-top: 20px;
+  }
+  section {
+    padding: 10px 0;
+    margin-top: 20px;
+    &:first-child {
+      border: 0;
+      padding-top: 0;
+    }
+    span {
+      display: block;
+      margin-bottom: 3px;
+    }
+  }
+}
+
 /* room_type photos */
 .photos {
   display: inline-block;
@@ -59,15 +78,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* room_type text */
-.align_right {
-  display: block;
-  margin-top: 1.25em;
-  margin-bottom: 2em;
-  width:40%;
-  float: right;
-  border-top: 1px solid #e8e8e8;
-  border-bottom: 1px solid #e8e8e8;
-  padding-bottom: 1.5em;
+.room_type {
+  list-style: none;
+  padding: 0;
+  li {
+    padding: 10px 0;
+  }
+  .align_right {
+    display: block;
+    margin-top: 1.25em;
+    margin-bottom: 2em;
+    width:40%;
+    float: right;
+    border-top: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+    padding-bottom: 1.5em;
+  }
 }
-
-/* body */
