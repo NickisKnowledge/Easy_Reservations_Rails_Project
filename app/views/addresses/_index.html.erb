@@ -1,0 +1,15 @@
+<% addresses.each do |address| %>
+  <p><%= address.address_type %></p>
+  <li>
+    Street 1: <%= address.street_1 %><br />
+    <% unless address.street_2.blank? %>
+      Street 2: <%= address.street_2 %><br>
+    <% end %>
+    City: <%= address.city %><br />
+    State: <%= address.state %><br />
+    ZIP code: <%= address.zipcode %><br />
+    <%= button_to 'Delete', address_path(address), method: 'delete',
+      data: { confirm: 'Are you sure you want to remove this address?' },
+      class: 'btn btn-large' if address.address_type == 'Work' %>
+  </li><br />
+<% end %>
