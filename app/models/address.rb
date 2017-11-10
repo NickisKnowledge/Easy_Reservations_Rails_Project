@@ -19,4 +19,14 @@ class Address < ActiveRecord::Base
     # binding.pry
     self.address_type == 'Home'
   end
+
+  def self.remove_empty_addresses(user)
+    #  binding.pry
+    addresses = where('user_id = ?', user)
+    addresses.each do |address|
+      address.delete if address.street_1.blank? && address.city.blank? &&
+        address.state.blank? && address.zipcode.blank?
+    end
+    addresses
+  end
 end
