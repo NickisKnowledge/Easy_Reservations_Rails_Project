@@ -40,6 +40,7 @@ class Reservation < ActiveRecord::Base
   end
 
   def future_checkout_time
+    # binding.pry
     if checkin_datetime.present? && checkout_datetime.present? &&
         checkout_datetime <= checkin_datetime
         errors.add(:checkout_time, 'must be a valid time after your check in ' \
@@ -51,14 +52,21 @@ class Reservation < ActiveRecord::Base
     errors.add(:number_of_rooms, 'must be 1 or more to make a reservation') if
       number_of_rooms <= 0
   end
-  
+
   def convert_to_datetime
     # binding.pry
-    checkin_datetime =  merge_datetime(checkin_date, checkin_time) if
-      checkin_date.present? && checkin_time.present?
-    # binding.pry
-    checkout_datetime = merge_datetime(checkout_date, checkout_time) if
-      checkout_date.present? && checkout_time.present?
+    if self.checkin_date.present? && self.checkin_time.present?
+      self.checkin_datetime =  self.merge_datetime(
+        self.checkin_date,
+        self.checkin_time
+      )
+    end
+    if self.checkout_date.present? && self.checkout_time.present?
+      self.checkout_datetime = self.merge_datetime(
+        self.checkout_date,
+        self.checkout_time
+      )
+    end
   end
 
   def merge_datetime(date1, time1)

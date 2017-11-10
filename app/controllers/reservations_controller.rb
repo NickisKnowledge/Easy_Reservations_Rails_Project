@@ -8,6 +8,7 @@ class ReservationsController < ApplicationController
     @reservation.checkout_date=(reservation_params[:checkout_date])
     @reservation.checkout_time=(reservation_params[:checkout_time])
     @reservation.convert_to_datetime
+    binding.pry
 
     if @reservation.save
       @reservation.decrease_room_inventory
