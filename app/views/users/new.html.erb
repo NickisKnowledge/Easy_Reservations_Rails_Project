@@ -1,5 +1,5 @@
 <% if @user.errors.any? %>
-  <div id="">
+  <div id="error_explanation">
     <h3>
       <%= @user.errors.count %> user
       <%= 'error'.pluralize(@user.errors.count) %>
