@@ -10,6 +10,8 @@
   <%= render 'addresses/index', addresses: current_user.addresses %>
 </ul>
 
+<br /><%= button_to 'Add Work Address', new_address_path, method: 'get',
+  class: 'btn btn-large' if @user.addresses.count == 1 %><br />
 
 <div class="display">
   <h2><%= "Reservation".pluralize(@user.reservations.count)%></h2>
