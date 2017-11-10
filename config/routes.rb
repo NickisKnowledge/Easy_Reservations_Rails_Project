@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/auth/:provider/callback', to: 'sessions#github'
   resources :addresses, only: [:new, :create, :destroy]
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
