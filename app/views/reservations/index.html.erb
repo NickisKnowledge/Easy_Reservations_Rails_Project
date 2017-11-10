@@ -4,7 +4,7 @@
 
 <div>
   <% @reservations.each do |reservation| %>
-    <h3><%= reservation.room_name %></h3>
+    <h3><%= reservation.room_name %> at <%= reservation.hotel_name %></h3>
     <ul>
       <strong>Check In: </strong>
       <%= user_view_reservation_time(reservation.checkin_time) %> on
@@ -15,5 +15,15 @@
       <strong>Rooms: </strong>
       <%= reservation.number_of_rooms %><br />
     </ul>
+
+    <h3>Your Rate</h3>
+      <ul>
+        <strong>Total Nights: </strong>
+        <%= total_nights(reservation) %><br />
+        <strong>Average Nightly Rate: </strong>
+        <%= number_to_currency(reservation.room.room_rate) %><br />
+        <strong>Estimated Total Price: </strong>
+        <%= total_price(reservation) %><br />
+      </ul>
   <% end %>
 </div>

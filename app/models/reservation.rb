@@ -142,4 +142,7 @@ class Reservation < ActiveRecord::Base
     end
   end
 
+  def hotel_name
+    room.hotel.name
+  end
 end
