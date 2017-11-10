@@ -11,7 +11,12 @@ class User < ActiveRecord::Base
     # binding.pry
     addresses_attributes.values.each do |address_attributes|
       # binding.pry
-      self.addresses.build(address_attributes)
+      if address_attributes.keys.include?('id')
+        address = self.addresses.find(address_attributes[:id])
+        address.update_attributes(address_attributes)
+      else
+        self.addresses.build(address_attributes)
+      end
     end
   end
 end
