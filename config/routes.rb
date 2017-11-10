@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   resources :addresses
-  resources :reservations
   resources :users
+  resources :reservations, only: [:index, :edit, :update, :destroy]
   resources :rooms, only: :show do
-    resources :room_types, only: :show    
+    resources :room_types, only: :show
+    resources :reservations, only: :create
   end
   root 'hotels#index'
   # The priority is based upon order of creation: first created -> highest priority.
