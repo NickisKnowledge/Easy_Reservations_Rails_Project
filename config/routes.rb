@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   resources :addresses
+
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
+  delete '/logout', to: 'sessions#destroy'
   resources :users
   resources :reservations, only: [:index, :edit, :update, :destroy]
   resources :rooms, only: :show do
