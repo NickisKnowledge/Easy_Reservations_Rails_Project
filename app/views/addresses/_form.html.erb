@@ -1,0 +1,35 @@
+<%= form_for address do |f| %>
+<%# binding.pry %>
+  <fieldset>
+    <legend>
+      <%= content_tag(:h2, "#{f.object.address_type} Address") %>
+    </legend>
+    <div class='field'>
+      <%= f.text_field :street_1, placeholder: 'Street 1',
+        value: address.street_1 %><br />
+    </div>
+    <div class='field'>
+      <%= f.text_field :street_2, placeholder: 'Street 2',
+        value: address.street_2  %><br />
+    </div>
+    <div class='field'>
+      <%= f.text_field :city, placeholder: 'City',
+        value: address.city  %><br />
+    </div>
+    <div class='field'>
+      <%= f.text_field :state, placeholder: 'State',
+        value: address.state %><br />
+    </div>
+    <div class='field'>
+      <%= f.text_field :zipcode, placeholder: 'ZIP Code',
+        value: address.zipcode %><br />
+    </div>
+    <div class='field'>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+      <%= f.hidden_field :address_type %><br />
+    </div>
+  </fieldset>
+  <div class="action">
+    <%= f.submit 'Add Address', class: "btn btn-primary" %>
+  </div>
+<% end %>
