@@ -21,7 +21,34 @@
   <div class="center"><h2>Reserve this Room</h2></div>
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <h1>Reservation form</h1>
+      <%= form_for(@reservation,
+        url: room_reservations_path(@room_type.room_ids)) do |f| %>
+        <div class="col-md-5 col-md-offset-2">
+         <%= f.label 'Check in Date' %><br />
+         <%= f.date_field :checkin_date %><br />
+         <%= f.label 'Check in Time' %><br />
+         <%= f.time_field :checkin_time %><br />
+        </div>
+
+        <div class="col-md-offset">
+         <%= f.label 'Check out Date' %><br />
+         <%= f.date_field :checkout_date %><br />
+         <%= f.label 'Check out Time' %><br />
+         <%= f.time_field :checkout_time %><br />
+        </div>
+
+        <div class="col-md-6 col-md-offset-3">
+         <center>
+           <%= f.label 'Number of Rooms' %>
+           <%= f.number_field :number_of_rooms %>
+        </center>
+         <%= f.hidden_field :room_id %>
+         <%= f.hidden_field :user_id %><br />
+        
+         <center><%= f.submit class: "btn btn-primary" %></center>
+        </div>
+         <%= f.hidden_field :room_type_id, value: @room_type.id %>
+      <% end %>
     </div>
   </div>
 <% elsif current_user && current_user.addresses.blank? %>
