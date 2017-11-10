@@ -1,0 +1,29 @@
+<div class="col-md-5 col-md-offset-2">
+ <%= f.label 'Check in Date' %><br />
+ <%= f.date_field :checkin_date,
+  value: reservation.checkin_date %><br />
+ <%= f.label 'Check in Time' %><br />
+ <%= f.time_field :checkin_time,
+  value: reservation.checkin_time %><br />
+</div>
+
+<div class="col-md-offset">
+ <%= f.label 'Check out Date' %><br />
+ <%= f.date_field :checkout_date,
+  value: reservation.checkout_date %><br />
+ <%= f.label 'Check out Time' %><br />
+ <%= f.time_field :checkout_time,
+  value: reservation.checkout_time %><br />
+</div>
+
+<div class="col-md-6 col-md-offset-3">
+ <center>
+   <%= f.label 'Number of Rooms' %>
+   <%= f.number_field :number_of_rooms,
+    value: reservation.number_of_rooms %>
+</center>
+ <%= f.hidden_field :room_id %>
+ <%= f.hidden_field :user_id %><br />
+
+ <center><%= f.submit class: "btn btn-primary" %></center>
+</div>
