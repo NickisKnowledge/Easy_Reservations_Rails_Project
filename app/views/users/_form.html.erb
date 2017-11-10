@@ -12,7 +12,7 @@
 <%# binding.pry %>
   <fieldset>
     <legend>
-      <h2>Home Address</h2>
+      <%= content_tag(:h2, "#{ff.object.address_type} Address") %>
     </legend>
     <div class='field'>
       <%= ff.text_field :street_1, placeholder: 'Street 1' %><br />
