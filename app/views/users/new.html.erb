@@ -19,16 +19,7 @@
 </div>
 
 <%= form_for @user do |f| %>
-  <div class='field'>
-    <%= f.text_field :name, placeholder: 'Name', value: @user.name %><br />
-  </div>
-  <div class='field' >
-    <%= f.password_field :password, placeholder: 'Password' %><br />
-  </div>
-  <div class='field'>
-    <%= f.password_field :password_confirmation,
-    placeholder: 'Password Confirmation' %>
-  </div><br />
+  <%= render 'form', f:f, user: @user %>
   <div class='actions'>
     <%= f.submit 'Sign up', class: "btn btn-primary" %><br />
   </div>
