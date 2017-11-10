@@ -23,6 +23,7 @@ class UsersController < ApplicationController
 
   def show
     if current_user.id == params[:id].to_i
+      @addresses = Address.remove_empty_addresses(current_user)
       render :show
     else
       flash[:alert] = "You don't have permission to access that profile"
