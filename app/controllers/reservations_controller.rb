@@ -15,6 +15,7 @@ class ReservationsController < ApplicationController
         "for the #{@reservation.room_name} has been made, $0 are due today"}
     else
       # binding.pry
+      @room_type = RoomType.find(params[:reservation][:room_type_id])
       render :'room_types/show'
     end
   end

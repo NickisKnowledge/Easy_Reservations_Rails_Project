@@ -12,9 +12,11 @@ class Reservation < ActiveRecord::Base
 
   def convert_to_datetime
     # binding.pry
-    checkin_datetime =  merge_datetime(checkin_date, checkin_time)
+    checkin_datetime =  merge_datetime(checkin_date, checkin_time) if
+      checkin_date.present? && checkin_time.present?
     # binding.pry
-    checkout_datetime = merge_datetime(checkout_date, checkout_time)
+    checkout_datetime = merge_datetime(checkout_date, checkout_time) if
+      checkout_date.present? && checkout_time.present?
   end
 
   def merge_datetime(date1, time1)
