@@ -11,6 +11,22 @@
         <li>* <%= message %></li>
       <% end %>
     </ul>
+
+    <ul>
+      <% @user.addresses.each do |address| %>
+          <% if address.errors.present? %>
+            <h3>
+              <%= "#{address.errors.count} #{address.address_type} Address"%>
+              <%= 'error'.pluralize(address.errors.count) %>
+               prohibited your information from being saved:
+            </h3>
+          <% end %>
+
+        <% address.errors.full_messages.each do |message| %>
+          <li>* <%= message %></li>
+        <% end %>
+      <% end %>
+    </ul>
   </div>
 <% end %>
 
@@ -24,5 +40,8 @@
      <%= f.submit 'Update Profile', class: "btn btn-primary" %><br />
   </div>
 <% end %>
+
+<br /><%= button_to 'Add Work Address', new_address_path, method: 'get',
+  class: 'btn btn-large' if @user.addresses.count == 1 %>
 
 <br /><%= link_to 'Cancel', user_path(@user)%>
