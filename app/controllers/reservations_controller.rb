@@ -10,6 +10,7 @@ class ReservationsController < ApplicationController
     @reservation.convert_to_datetime
 
     if @reservation.save
+      @reservation.decrease_room_inventory
       redirect_to reservations_path,{notice: "Your reservation " \
         "for the #{@reservation.room_name} has been made, $0 are due today"}
     else

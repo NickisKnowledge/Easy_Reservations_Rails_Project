@@ -34,4 +34,10 @@ class Reservation < ActiveRecord::Base
   def room_name
     room.room_type.name
   end
+
+  def decrease_room_inventory
+  # binding.pry
+  room.update(inventory: (room.inventory -= number_of_rooms))
+end
+
 end
