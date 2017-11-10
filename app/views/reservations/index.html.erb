@@ -17,13 +17,20 @@
     </ul>
 
     <h3>Your Rate</h3>
-      <ul>
-        <strong>Total Nights: </strong>
-        <%= total_nights(reservation) %><br />
-        <strong>Average Nightly Rate: </strong>
-        <%= number_to_currency(reservation.room.room_rate) %><br />
-        <strong>Estimated Total Price: </strong>
-        <%= total_price(reservation) %><br />
-      </ul>
+    <ul>
+      <strong>Total Nights: </strong>
+      <%= total_nights(reservation) %><br />
+      <strong>Average Nightly Rate: </strong>
+      <%= number_to_currency(reservation.room.room_rate) %><br />
+      <strong>Estimated Total Price: </strong>
+      <%= total_price(reservation) %><br />
+    </ul>
+
+    <%= button_to 'Edit',
+      edit_reservation_path(reservation, reservation.id), method: 'get',
+      class: 'btn btn-large btn-primary' %><br />
+    <%= button_to 'Delete', reservation_path(reservation), method: 'delete',
+      data: { confirm: 'Are you sure you want this reservation?' },
+      class: 'btn btn-large'%>
   <% end %>
 </div>
