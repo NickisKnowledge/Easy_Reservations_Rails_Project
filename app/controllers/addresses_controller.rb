@@ -1,7 +1,15 @@
 class AddressesController < ApplicationController
 
   def new
-    @address = current_user.addresses.build(address_type: 'Work')
+    case
+    when current_user.addresses.blank?
+      @address = current_user.addresses.build(address_type: 'Home')
+    when current_user.addresses.count == 1
+      @address = current_user.addresses.build(address_type: 'Work')
+    else
+      redirect_to user_path(current_user), {alert: "If you need to update " \
+        "an address, click the 'Edit Profile' button"}
+    end
   end
 
   def create
