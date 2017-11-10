@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
 
   validates_presence_of :name
   has_secure_password
-  validates_associated :addresses
+  validates_associated :addresses, unless:
+    Proc.new { |user| user.provider.present?}
 
   def addresses_attributes=(addresses_attributes)
     # binding.pry
@@ -21,7 +22,7 @@ class User < ActiveRecord::Base
   end
 
   def self.from_omniauth(auth)
-  # binding.pry
+  binding.pry
   where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.provider = auth.provider
       user.uid = auth.uid
