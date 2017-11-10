@@ -29,6 +29,14 @@ class ReservationsController < ApplicationController
     end
   end
 
+  def destroy
+    @reservation.increase_room_inventory
+    @reservation.delete
+    redirect_to reservations_path,{notice: "Your reservation for " \
+      "#{@reservation.checkin_datetime.strftime('%A, %B %d, %Y')} has " \
+      "been deleted."}
+  end
+
   private
   def set_reservation
     @reservation = Reservation.find_by(id: params[:id])

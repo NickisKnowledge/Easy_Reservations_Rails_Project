@@ -145,4 +145,9 @@ class Reservation < ActiveRecord::Base
   def hotel_name
     room.hotel.name
   end
+
+  def increase_room_inventory
+    binding.pry
+    room.update(inventory: (room.inventory += number_of_rooms))
+  end
 end
