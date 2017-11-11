@@ -9,9 +9,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    # raise params.inspect
     @user = User.new(user_params)
-    # debugger
     if @user.save
       session[:user_id] = @user.id
       redirect_to root_path, {notice: 'Thanks for registering! Select ' \
@@ -41,7 +39,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    # raise params.inspect
     if @user.update(user_params)
       redirect_to user_path(@user), {notice: "#{@user.name}, your " \
         "profile has been updated"}
@@ -62,7 +59,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    # binding.pry
     params.require(:user).permit(
       :name,
       :password,

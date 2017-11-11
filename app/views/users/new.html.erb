@@ -35,7 +35,6 @@
 </div>
 
 <%= form_for @user do |f| %>
-<%# binding.pry %>
   <%= render 'form', f:f, user: @user, addresses: @addresses %>
   <div class='actions'>
     <%= f.submit 'Sign up', class: "btn btn-primary" %><br />

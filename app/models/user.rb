@@ -9,9 +9,7 @@ class User < ActiveRecord::Base
     Proc.new { |user| user.provider.present?}
 
   def addresses_attributes=(addresses_attributes)
-    # binding.pry
     addresses_attributes.values.each do |address_attributes|
-      # binding.pry
       if address_attributes.keys.include?('id')
         address = self.addresses.find(address_attributes[:id])
         address.update_attributes(address_attributes)
@@ -27,7 +25,6 @@ class User < ActiveRecord::Base
       user.uid = auth.uid
       user.name = auth.info.name
       user.password = SecureRandom.hex
-      # binding.pry
     end
   end
 

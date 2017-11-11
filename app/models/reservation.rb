@@ -17,21 +17,18 @@ class Reservation < ActiveRecord::Base
   validate :no_of_rooms_greater_then_0, if: lambda { number_of_rooms.present? }
 
   def future_checkin_date
-    # binding.pry
     if checkin_date.present? && checkin_date.to_date < DateTime.now.to_date
       errors.add(:checkin_date, 'must be a valid current or future date')
     end
   end
 
   def future_checkin_time
-    # binding.pry
     if checkin_time.present? && checkin_time.to_time < Time.now
       errors.add(:checkin_time, 'must be a valid current or future time')
     end
   end
 
   def future_checkout_date
-    # binding.pry
     if checkin_date.present? && checkout_date.present? &&
         checkout_date.to_date < checkin_date.to_date
       errors.add(:checkout_date, 'must be a valid date after your check in ' \
@@ -40,7 +37,6 @@ class Reservation < ActiveRecord::Base
   end
 
   def future_checkout_time
-    # binding.pry
     if checkin_datetime.present? && checkout_datetime.present? &&
         checkout_datetime <= checkin_datetime
         errors.add(:checkout_time, 'must be a valid time after your check in ' \
@@ -54,7 +50,6 @@ class Reservation < ActiveRecord::Base
   end
 
   def convert_to_datetime
-    # binding.pry
     if self.checkin_date.present? && self.checkin_time.present?
       self.checkin_datetime =  self.merge_datetime(
         self.checkin_date,
@@ -70,7 +65,6 @@ class Reservation < ActiveRecord::Base
   end
 
   def merge_datetime(date1, time1)
-    # binding.pry
     res_date = Date.parse(date1)
     res_time = Time.parse(time1)
     merged_datetime = DateTime.new(
@@ -88,7 +82,6 @@ class Reservation < ActiveRecord::Base
   end
 
   def decrease_room_inventory
-  # binding.pry
   room.update(inventory: (room.inventory -= number_of_rooms))
   end
 
@@ -147,7 +140,6 @@ class Reservation < ActiveRecord::Base
   end
 
   def increase_room_inventory
-    # binding.pry
     room.update(inventory: (room.inventory += number_of_rooms))
   end
 
@@ -170,7 +162,6 @@ class Reservation < ActiveRecord::Base
   end
 
   def room_available?(room_type)
-    # binding.pry
     if Room.find(room_id).inventory == 0
       message = "Unfortunately, all of those #{room_type.name} rooms have "\
         "been reserved. Please select another room"

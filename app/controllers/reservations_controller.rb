@@ -3,43 +3,35 @@ class ReservationsController < ApplicationController
   before_action :set_reservation, only: [:edit, :update, :destroy]
 
   def index
-    # binding.pry
     @reservations = Reservation.users_reservations(current_user)
     Reservation.reservations_checkin_setter(@reservations)
     Reservation.reservations_checkout_setter(@reservations)
   end
 
   def create
-    # raise params.inspect
     @reservation = Reservation.new(reservation_params)
     @reservation.checkin_date=(reservation_params[:checkin_date])
     @reservation.checkin_time=(reservation_params[:checkin_time])
     @reservation.checkout_date=(reservation_params[:checkout_date])
     @reservation.checkout_time=(reservation_params[:checkout_time])
     @reservation.convert_to_datetime
-    # binding.pry
     @room_type = RoomType.find(params[:reservation][:room_type_id])
     result = @reservation.room_available?(@room_type)
-      # binding.pry
     if result[0]
       if @reservation.save
         @reservation.decrease_room_inventory
-        # binding.pry
         redirect_to reservations_path,{notice: "Your reservation " \
           "for the #{@reservation.room_name} has been made, $0 are due today"}
       else
-        # binding.pry
         render :'room_types/show'
       end
     else
-      # binding.pry
       redirect_to room_path(@reservation.room.hotel),
         {alert: "#{result[1]}"}
     end
   end
 
   def edit
-    # binding.pry
     if @reservation.user_id == current_user.id
       Reservation.reservation_checkin_setter(@reservation)
       Reservation.reservation_checkout_setter(@reservation)
@@ -51,14 +43,12 @@ class ReservationsController < ApplicationController
   end
 
   def update
-    # raise params.inspect
     @reservation.checkin_date=(reservation_params[:checkin_date])
     @reservation.checkin_time=(reservation_params[:checkin_time])
     @reservation.checkout_date=(reservation_params[:checkout_date])
     @reservation.checkout_time=(reservation_params[:checkout_time])
     @reservation.convert_to_datetime
     @reservation.number_of_rooms = reservation_params[:number_of_rooms]
-    # binding.pry
     if @reservation.number_of_rooms <
         params[:reservation][:orginal_number_of_rooms].to_i
       room = Room.find(@reservation.room.id)
@@ -69,7 +59,6 @@ class ReservationsController < ApplicationController
 
     result = @reservation.room_available?(@reservation.room.room_type)
     if result[0]
-      # binding.pry
       if @reservation.save
         @reservation.decrease_room_inventory
         redirect_to reservations_path,{notice: "Your reservation " \
@@ -78,7 +67,6 @@ class ReservationsController < ApplicationController
         render :edit
       end
     else
-      # binding.pry
       redirect_to reservations_path, {alert: "#{result[1]}"}
     end
   end

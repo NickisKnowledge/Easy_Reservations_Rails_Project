@@ -9,7 +9,6 @@
   placeholder: 'Password Confirmation' %>
 </div><br />
 <%= f.fields_for :addresses do |ff| %>
-<%# binding.pry %>
   <fieldset>
     <legend>
       <%= content_tag(:h2, "#{ff.object.address_type} Address") %>

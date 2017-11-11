@@ -2,7 +2,6 @@ class Address < ActiveRecord::Base
   belongs_to :user
 
   with_options if: :home_address_present? do |address|
-  #  binding.pry
   address.validates :street_1,
     presence: { message: 'for home address must be provided' }
   address.validates  :city,
@@ -16,12 +15,10 @@ class Address < ActiveRecord::Base
   end
 
   def home_address_present?
-    # binding.pry
-    self.address_type == 'Home'
+    address_type == 'Home'
   end
 
   def self.remove_empty_addresses(user)
-    #  binding.pry
     addresses = where('user_id = ?', user)
     addresses.each do |address|
       address.delete if address.street_1.blank? && address.city.blank? &&
@@ -32,7 +29,6 @@ class Address < ActiveRecord::Base
 
   def work_address_issues?
     attributes = self.attributes.except('id', 'created_at', 'updated_at')
-    # binding.pry
     case
     when !attributes['zipcode'].is_a?(Integer)
       return true, 'Your Work Address zip code did not consist of integers, ' \

@@ -14,15 +14,11 @@ class AddressesController < ApplicationController
   end
 
   def create
-    # raise params.inspect
-    # binding.pry
     @address = Address.new(address_params)
     result = @address.work_address_issues?
-    # binding.pry
     if @address.address_type == 'Work' && result[0]
       redirect_to user_path(current_user), {alert: "#{result[1]}" }
     else
-      # binding.pry
       if @address.save
       redirect_to user_path(current_user),
         {notice: "Your #{@address.address_type} Address has been added"}
@@ -33,7 +29,6 @@ class AddressesController < ApplicationController
   end
 
   def destroy
-    # raise params.inspect
     address = Address.find(params[:id])
     address.delete
     redirect_to user_path(current_user),
