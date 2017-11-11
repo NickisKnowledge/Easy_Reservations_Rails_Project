@@ -2,12 +2,10 @@ class RoomTypesController < ApplicationController
   before_action :set_roomtype
 
   def show
-    flash.now[:alert] = 'You must have a Home Address to make a reservation' if
-      current_user && current_user.addresses.blank?
-    flash.now[:alert] = "Only 1 #{@room_type.name} is available." \
-      ' Reserve NOW to make it yours!!!' if @room_type.room_type_inventory == 1
-    flash.now[:alert] = "Sorry, no #{@room_type.name} rooms are available." if
-      @room_type.room_type_inventory == 0
+    result = @room_type.any_alerts?(current_user)
+    if result[0]
+      flash.now[:alert] = "#{result[1]}"
+    end
 
     @amenities = @room_type.hotel_amenities
 
