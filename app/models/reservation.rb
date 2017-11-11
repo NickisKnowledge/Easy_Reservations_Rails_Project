@@ -161,6 +161,22 @@ class Reservation < ActiveRecord::Base
     )
   end
 
+  def alter_room_inventory(orginal_number)
+    if number_of_rooms != orginal_number.to_i
+      room = Room.find(room_id)
+        room.update(inventory: (room.inventory += orginal_number.to_i))
+      answer = self.room_available?(room.room_type)
+      if answer[0]
+        self.decrease_room_inventory
+      else
+        room.update(inventory: (room.inventory -= orginal_number.to_i))
+      end
+      answer
+    else
+      false
+    end
+  end
+
   def room_available?(room_type)
     if Room.find(room_id).inventory == 0
       message = "Unfortunately, all of those #{room_type.name} rooms have "\

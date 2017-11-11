@@ -49,18 +49,12 @@ class ReservationsController < ApplicationController
     @reservation.checkout_time=(reservation_params[:checkout_time])
     @reservation.convert_to_datetime
     @reservation.number_of_rooms = reservation_params[:number_of_rooms]
-    if @reservation.number_of_rooms <
-        params[:reservation][:orginal_number_of_rooms].to_i
-      room = Room.find(@reservation.room.id)
-      room.update(inventory:
-        (room.inventory += params[:reservation][:orginal_number_of_rooms].to_i)
-      )
-    end
 
-    result = @reservation.room_available?(@reservation.room.room_type)
-    if result[0]
+    result =  @reservation.alter_room_inventory(
+      params[:reservation][:orginal_number_of_rooms]
+    )
+    if !result || result[0]
       if @reservation.save
-        @reservation.decrease_room_inventory
         redirect_to reservations_path,{notice: "Your reservation " \
           "for the #{@reservation.room_name} has been updated."}
         else

@@ -29,5 +29,9 @@
    <%= render 'reservations/form', f: f, reservation: @reservation %>
    <%= f.hidden_field :orginal_number_of_rooms,
       value: @reservation.number_of_rooms %>
-  <% end %>
+    <% end %>
+</div>
+
+<div class="col-md-6 col-md-offset-3" >
+  <br /><center><%= link_to 'Cancel', reservations_path %></center>
 </div>
