@@ -19,9 +19,9 @@ class ReservationsController < ApplicationController
     @reservation.convert_to_datetime
     # binding.pry
     @room_type = RoomType.find(params[:reservation][:room_type_id])
-    message = @reservation.room_available?(@room_type)
+    result = @reservation.room_available?(@room_type)
       # binding.pry
-    if message[0]
+    if result[0]
       if @reservation.save
         @reservation.decrease_room_inventory
         # binding.pry
@@ -34,7 +34,7 @@ class ReservationsController < ApplicationController
     else
       # binding.pry
       redirect_to room_path(@reservation.room.hotel),
-        {alert: "#{message[1]}"}
+        {alert: "#{result[1]}"}
     end
   end
 
@@ -67,8 +67,8 @@ class ReservationsController < ApplicationController
       )
     end
 
-    message = @reservation.room_available?(@reservation.room.room_type)
-    if message[0]
+    result = @reservation.room_available?(@reservation.room.room_type)
+    if result[0]
       # binding.pry
       if @reservation.save
         @reservation.decrease_room_inventory
@@ -79,7 +79,7 @@ class ReservationsController < ApplicationController
       end
     else
       # binding.pry
-      redirect_to reservations_path, {alert: "#{message[1]}"}
+      redirect_to reservations_path, {alert: "#{result[1]}"}
     end
   end
 
