@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
       user.uid = auth.uid
       user.name = auth.info.name
       user.password = SecureRandom.hex
-      binding.pry
+      # binding.pry
     end
   end
 
