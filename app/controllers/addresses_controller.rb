@@ -1,4 +1,5 @@
 class AddressesController < ApplicationController
+  before_action :require_login
 
   def new
     case
@@ -14,15 +15,22 @@ class AddressesController < ApplicationController
 
   def create
     # raise params.inspect
+    # binding.pry
     @address = Address.new(address_params)
-    if @address.street_1.blank? && @address.city.blank? &&
-      @address.state.blank? && @address.zipcode.blank?
+    # binding.pry
+    if @address.address_type == 'Work' && @address.street_1.blank? &&
+      @address.city.blank? && @address.state.blank? && @address.zipcode.blank?
       redirect_to user_path(current_user),
-        {alert: 'Your Work Address was blank so it has not been added'}
+        {alert: 'Your Work Address was blank, therefore it has not been ' \
+          'added to your profle'}
     else
-      @address.save
+      # binding.pry
+      if @address.save
       redirect_to user_path(current_user),
         {notice: "Your #{@address.address_type} Address has been added"}
+      else
+      render :new
+      end
     end
   end
 

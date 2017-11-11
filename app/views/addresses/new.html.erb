@@ -1,3 +1,17 @@
+<% if @address.errors.any? %>
+  <div id="error_explanation">
+    <h3>
+       <%= pluralize(@address.errors.count, 'error') %>
+       prohibited your address from being saved:
+    </h3>
+    <ul>
+        <% @address.errors.full_messages.each do |message| %>
+          <li>* <%= message %></li>
+        <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <div class="center">
   <h1>Add your Address</h1>
 </div>

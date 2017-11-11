@@ -10,6 +10,9 @@
   <%= render 'addresses/index', addresses: current_user.addresses %>
 </ul>
 
+<br /><%= button_to 'Add Home Address', new_address_path, method: 'get',
+  class: "btn btn-primary" if @user.addresses.blank? %>
+
 <br /><%= button_to 'Add Work Address', new_address_path, method: 'get',
   class: 'btn btn-large' if @user.addresses.count == 1 %><br />
 
