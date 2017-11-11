@@ -170,7 +170,7 @@ class Reservation < ActiveRecord::Base
   end
 
   def room_available?(room_type)
-    # binding.pry
+    binding.pry
     if room.inventory == 0
       message = "Unfortunately, all of those #{room_type.name} rooms have "\
         "been reserved. Please select another room"

@@ -57,12 +57,19 @@ class ReservationsController < ApplicationController
     @reservation.checkout_time=(reservation_params[:checkout_time])
     @reservation.convert_to_datetime
 
-    if @reservation.save
-      @reservation.decrease_room_inventory
-      redirect_to reservations_path,{notice: "Your reservation " \
-        "for the #{@reservation.room_name} has been updated."}
+    message = @reservation.room_available?(@reservation.room.room_type)
+      # binding.pry
+    if message[0]
+      if @reservation.save
+        @reservation.decrease_room_inventory
+        redirect_to reservations_path,{notice: "Your reservation " \
+          "for the #{@reservation.room_name} has been updated."}
+        else
+        render :edit
+      end
     else
-      render :edit
+      # binding.pry
+      redirect_to reservations_path, {alert: "#{message[1]}"}
     end
   end
 
