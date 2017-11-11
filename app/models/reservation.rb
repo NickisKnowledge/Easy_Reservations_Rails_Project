@@ -2,8 +2,7 @@ class Reservation < ActiveRecord::Base
   belongs_to :user
   belongs_to :room
 
-  attr_accessor :checkin_date, :checkin_time, :checkout_date, :checkout_time,
-    :orginal_number_of_rooms
+  attr_accessor :checkin_date, :checkin_time, :checkout_date, :checkout_time
 
   validates_presence_of :checkin_date
   validates_presence_of :checkin_time
