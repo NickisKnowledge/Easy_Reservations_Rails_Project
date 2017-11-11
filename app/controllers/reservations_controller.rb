@@ -50,7 +50,7 @@ class ReservationsController < ApplicationController
   end
 
   def update
-    @reservation.update(reservation_params)
+    @reservation.number_of_rooms = (reservation_params[:number_of_rooms])
     @reservation.checkin_date=(reservation_params[:checkin_date])
     @reservation.checkin_time=(reservation_params[:checkin_time])
     @reservation.checkout_date=(reservation_params[:checkout_date])
