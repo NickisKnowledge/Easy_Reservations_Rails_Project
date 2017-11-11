@@ -34,6 +34,7 @@ class ReservationsController < ApplicationController
     if @reservation.user_id == current_user.id
       Reservation.reservation_checkin_setter(@reservation)
       Reservation.reservation_checkout_setter(@reservation)
+      @reservation.increase_room_inventory
       render :edit
     else
       flash[:alert] = "You don't have permission to edit that reservation."
@@ -42,8 +43,20 @@ class ReservationsController < ApplicationController
   end
 
   def update
-    binding.pry
-    
+    @reservation.update(reservation_params)
+    @reservation.checkin_date=(reservation_params[:checkin_date])
+    @reservation.checkin_time=(reservation_params[:checkin_time])
+    @reservation.checkout_date=(reservation_params[:checkout_date])
+    @reservation.checkout_time=(reservation_params[:checkout_time])
+    @reservation.convert_to_datetime
+
+    if @reservation.save
+      @reservation.decrease_room_inventory
+      redirect_to reservations_path,{notice: "Your reservation " \
+        "for the #{@reservation.room_name} has been updated."}
+    else
+      render :edit
+    end
   end
 
 

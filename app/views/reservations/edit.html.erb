@@ -13,9 +13,13 @@
 <% end %>
 
 <div class="center">
-  <h2>Reservation for
-    <%= user_view_reservation_date(@reservation.checkin_date) %> Update
-  </h2>
+  <% if @reservation.checkin_date.present? %>
+    <h2>Reservation for
+      <%= user_view_reservation_date(@reservation.checkin_date) %> Update
+    </h2>
+  <% else %>
+    <h2>Correct your input to update your Reservation</h2>
+  <% end %>
 </div>
 
 <br />
