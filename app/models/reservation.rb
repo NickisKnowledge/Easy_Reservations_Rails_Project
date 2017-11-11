@@ -2,7 +2,8 @@ class Reservation < ActiveRecord::Base
   belongs_to :user
   belongs_to :room
 
-  attr_accessor :checkin_date, :checkin_time, :checkout_date, :checkout_time
+  attr_accessor :checkin_date, :checkin_time, :checkout_date, :checkout_time,
+    :orginal_number_of_rooms
 
   validates_presence_of :checkin_date
   validates_presence_of :checkin_time
@@ -171,11 +172,11 @@ class Reservation < ActiveRecord::Base
 
   def room_available?(room_type)
     # binding.pry
-    if room.inventory == 0
+    if Room.find(room_id).inventory == 0
       message = "Unfortunately, all of those #{room_type.name} rooms have "\
         "been reserved. Please select another room"
       return false, message
-    elsif number_of_rooms > room.inventory
+    elsif number_of_rooms > Room.find(room_id).inventory
       message = "Unfortunately, your desired quantity of the " \
       "#{room_type.name} room is not available. Please select another " \
       "room, or reserve less rooms of this type."

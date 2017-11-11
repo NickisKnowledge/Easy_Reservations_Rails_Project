@@ -3,6 +3,7 @@ class ReservationsController < ApplicationController
   before_action :set_reservation, only: [:edit, :update, :destroy]
 
   def index
+    # binding.pry
     @reservations = Reservation.users_reservations(current_user)
     Reservation.reservations_checkin_setter(@reservations)
     Reservation.reservations_checkout_setter(@reservations)
@@ -23,6 +24,7 @@ class ReservationsController < ApplicationController
     if message[0]
       if @reservation.save
         @reservation.decrease_room_inventory
+        # binding.pry
         redirect_to reservations_path,{notice: "Your reservation " \
           "for the #{@reservation.room_name} has been made, $0 are due today"}
       else
@@ -41,7 +43,6 @@ class ReservationsController < ApplicationController
     if @reservation.user_id == current_user.id
       Reservation.reservation_checkin_setter(@reservation)
       Reservation.reservation_checkout_setter(@reservation)
-      @reservation.increase_room_inventory
       render :edit
     else
       flash[:alert] = "You don't have permission to edit that reservation."
@@ -50,16 +51,25 @@ class ReservationsController < ApplicationController
   end
 
   def update
-    @reservation.number_of_rooms = (reservation_params[:number_of_rooms])
+    # raise params.inspect
     @reservation.checkin_date=(reservation_params[:checkin_date])
     @reservation.checkin_time=(reservation_params[:checkin_time])
     @reservation.checkout_date=(reservation_params[:checkout_date])
     @reservation.checkout_time=(reservation_params[:checkout_time])
     @reservation.convert_to_datetime
+    @reservation.number_of_rooms = reservation_params[:number_of_rooms]
+    # binding.pry
+    if @reservation.number_of_rooms <
+        params[:reservation][:orginal_number_of_rooms].to_i
+      room = Room.find(@reservation.room.id)
+      room.update(inventory:
+        (room.inventory += params[:reservation][:orginal_number_of_rooms].to_i)
+      )
+    end
 
     message = @reservation.room_available?(@reservation.room.room_type)
-      # binding.pry
     if message[0]
+      # binding.pry
       if @reservation.save
         @reservation.decrease_room_inventory
         redirect_to reservations_path,{notice: "Your reservation " \
@@ -89,14 +99,14 @@ class ReservationsController < ApplicationController
 
 
   def reservation_params
-  params.require(:reservation).permit(
-    :checkin_date,
-    :checkin_time,
-    :checkout_date,
-    :checkout_time,
-    :number_of_rooms,
-    :room_id,
-    :user_id
-  )
+    params.require(:reservation).permit(
+      :checkin_date,
+      :checkin_time,
+      :checkout_date,
+      :checkout_time,
+      :number_of_rooms,
+      :room_id,
+      :user_id
+    )
   end
 end
