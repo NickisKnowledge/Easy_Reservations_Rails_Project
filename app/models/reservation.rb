@@ -101,7 +101,7 @@ class Reservation < ActiveRecord::Base
   end
 
   def self.default_checkout_date
-    DateTime.tomorrow.strftime('%Y-%m-%d')
+    DateTime.now.tomorrow.strftime('%Y-%m-%d')
   end
 
   def self.default_checkout_time
@@ -167,5 +167,21 @@ class Reservation < ActiveRecord::Base
     reservation.checkout_time = reservation.reservation_time(
       reservation.checkout_datetime
     )
+  end
+
+  def room_available?(room_type)
+    # binding.pry
+    if room.inventory == 0
+      message = "Unfortunately, all of those #{room_type.name} rooms have "\
+        "been reserved. Please select another room"
+      return false, message
+    elsif number_of_rooms > room.inventory
+      message = "Unfortunately, your desired quantity of the " \
+      "#{room_type.name} room is not available. Please select another " \
+      "room, or reserve less rooms of this type."
+      return false, message
+    else
+      [true]
+    end
   end
 end

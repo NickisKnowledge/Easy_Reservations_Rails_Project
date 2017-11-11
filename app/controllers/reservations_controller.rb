@@ -17,15 +17,22 @@ class ReservationsController < ApplicationController
     @reservation.checkout_time=(reservation_params[:checkout_time])
     @reservation.convert_to_datetime
     # binding.pry
-
-    if @reservation.save
-      @reservation.decrease_room_inventory
-      redirect_to reservations_path,{notice: "Your reservation " \
-        "for the #{@reservation.room_name} has been made, $0 are due today"}
+    @room_type = RoomType.find(params[:reservation][:room_type_id])
+    message = @reservation.room_available?(@room_type)
+      # binding.pry
+    if message[0]
+      if @reservation.save
+        @reservation.decrease_room_inventory
+        redirect_to reservations_path,{notice: "Your reservation " \
+          "for the #{@reservation.room_name} has been made, $0 are due today"}
+      else
+        # binding.pry
+        render :'room_types/show'
+      end
     else
       # binding.pry
-      @room_type = RoomType.find(params[:reservation][:room_type_id])
-      render :'room_types/show'
+      redirect_to room_path(@reservation.room.hotel),
+        {alert: "#{message[1]}"}
     end
   end
 
