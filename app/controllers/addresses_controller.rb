@@ -17,12 +17,10 @@ class AddressesController < ApplicationController
     # raise params.inspect
     # binding.pry
     @address = Address.new(address_params)
+    result = @address.work_address_issues?
     # binding.pry
-    if @address.address_type == 'Work' && @address.street_1.blank? &&
-      @address.city.blank? && @address.state.blank? && @address.zipcode.blank?
-      redirect_to user_path(current_user),
-        {alert: 'Your Work Address was blank, therefore it has not been ' \
-          'added to your profle'}
+    if @address.address_type == 'Work' && result[0]
+      redirect_to user_path(current_user), {alert: "#{result[1]}" }
     else
       # binding.pry
       if @address.save
