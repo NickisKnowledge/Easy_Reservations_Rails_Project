@@ -185,7 +185,7 @@ class Reservation < ActiveRecord::Base
     elsif number_of_rooms > Room.find(room_id).inventory
       message = "Unfortunately, your desired quantity of the " \
       "#{room_type.name} room is not available. Please select another " \
-      "room, or reserve less rooms of this type."
+      "room, or reserve less rooms of this type"
       return false, message
     else
       [true]

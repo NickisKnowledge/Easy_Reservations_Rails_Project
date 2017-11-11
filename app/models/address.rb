@@ -32,10 +32,10 @@ class Address < ActiveRecord::Base
     case
     when attributes.values.any?(&:blank?)
       return true, 'Your Work Address was incomplete, therefore it has not ' \
-        'been added to your profle'
+        'been added to your profile'
     when !attributes['zipcode'].is_a?(Integer) || 0
       return true, 'Your Work Address zip code did not consist of integers, ' \
-      'therefore it has not been added to your profle'
+      'therefore it has not been added to your profile'
     else
       [false]
     end
