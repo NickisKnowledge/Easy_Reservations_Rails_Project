@@ -31,4 +31,9 @@ class User < ActiveRecord::Base
     end
   end
 
+  def update_room_inventory
+    reservations.each do |reservation|
+      reservation.increase_room_inventory
+    end
+  end
 end

@@ -21,21 +21,21 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
-    if current_user.id == params[:id].to_i
-      render :edit
-    else
-      flash[:alert] = "You don't have permission to edit that profile"
-      redirect_to user_path(current_user.id)
-    end
-  end
-
   def show
     if current_user.id == params[:id].to_i
       @addresses = Address.remove_empty_addresses(current_user)
       render :show
     else
       flash[:alert] = "You don't have permission to access that profile"
+      redirect_to user_path(current_user.id)
+    end
+  end
+
+  def edit
+    if current_user.id == params[:id].to_i
+      render :edit
+    else
+      flash[:alert] = "You don't have permission to edit that profile"
       redirect_to user_path(current_user.id)
     end
   end
@@ -48,6 +48,12 @@ class UsersController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @user.update_room_inventory
+    @user.destroy
+    redirect_to root_path, {notice: 'Your account has been deleted' }
   end
 
   private
