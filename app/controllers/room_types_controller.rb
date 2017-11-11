@@ -6,6 +6,8 @@ class RoomTypesController < ApplicationController
       current_user && current_user.addresses.blank?
     flash.now[:alert] = "Only 1 #{@room_type.name} is available." \
       ' Reserve NOW to make it yours!!!' if @room_type.room_type_inventory == 1
+    flash.now[:alert] = "Sorry, no #{@room_type.name} rooms are available." if
+      @room_type.room_type_inventory == 0
 
     @amenities = @room_type.hotel_amenities
 
