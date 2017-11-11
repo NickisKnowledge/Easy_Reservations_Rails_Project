@@ -111,7 +111,7 @@ end
 setup_addresses = [
   ['852 E Dr', '', 'Winchester', 'MN',	96541 'Home', 1],
   ['11 Broadway #260', 'Learn.co', 'New York',	'NY',	10004,	'Work', 1],
-  ['123 Orchard', 'apt 14', 'Montana','MN', 6612, 'Work', 2]
+  ['123 Orchard', 'apt 14', 'Montana','MN', 6612, 'Home', 2]
 ]
 
 setup_addresses.each do |address|
