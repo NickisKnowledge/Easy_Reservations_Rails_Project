@@ -30,12 +30,12 @@ class Address < ActiveRecord::Base
   def work_address_issues?
     attributes = self.attributes.except('id', 'created_at', 'updated_at')
     case
-    when !attributes['zipcode'].is_a?(Integer)
-      return true, 'Your Work Address zip code did not consist of integers, ' \
-      'therefore it has not been added to your profle'
     when attributes.values.any?(&:blank?)
       return true, 'Your Work Address was incomplete, therefore it has not ' \
         'been added to your profle'
+    when !attributes['zipcode'].is_a?(Integer) || 0
+      return true, 'Your Work Address zip code did not consist of integers, ' \
+      'therefore it has not been added to your profle'
     else
       [false]
     end
