@@ -14,11 +14,11 @@
   <h3>Your Rate</h3>
   <ul>
     <strong>Total Nights: </strong>
-    <%= total_nights(reservation) %><br />
+    <%= reservation.total_nights %><br />
     <strong>Average Nightly Rate: </strong>
     <%= number_to_currency(reservation.room.room_rate) %><br />
     <strong>Estimated Total Price: </strong>
-    <%= total_price(reservation) %><br />
+    <%= number_to_currency(reservation.total_price) %><br />
   </ul>
 
   <%= button_to 'Edit',

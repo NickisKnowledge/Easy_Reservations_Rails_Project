@@ -191,4 +191,15 @@ class Reservation < ActiveRecord::Base
       [true]
     end
   end
+
+  def total_nights
+    (checkout_datetime.to_date - checkin_datetime.to_date).to_i
+  end
+
+  def total_price
+    nights = self.total_nights == 0? 1 : self.total_nights
+    cost = nights * room.room_rate * number_of_rooms
+    taxes = cost * 0.15
+    cost + taxes
+  end
 end
